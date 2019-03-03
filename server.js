@@ -9,14 +9,13 @@ const profile = require('./controllers/profile');
 const imageIncrease = require('./controllers/image');
 
 const PORT = process.env.PORT || 3001;
+const DATABASE_LINK = process.env.DATABASE_URL;
 
 const pg = knex({
    client: 'pg',
    connection: {
-      host : '127.0.0.1',
-      user : 'postgres',
-      password : 'kloop12',
-      database : 'face-recon'
+      connectionString: DATABASE_LINK,
+      ssl: true
    }
 });
 
