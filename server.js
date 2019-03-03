@@ -25,7 +25,8 @@ app.use(bp.json());
 app.use(cors());
 
 app.get('/', (req, res)=>{
-   res.send(database.users);
+   pg.select('*').from('users')
+       .then(response => res.json(response));
 });
 
 
