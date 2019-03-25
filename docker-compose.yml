@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  #Backend
+  face-recon-api:
+    container_name: backend
+    image: node:10.15.0
+    command: bash -c "npm install && npm start"
+    working_dir: /usr/src/face-recon-api
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./:/usr/src/face-recon-api
+    environment:
+      CLARIFAI_API_KEY: 2c149afabd8141448623c02e728db777
+      NODE_ENV: development
+      DATABASE_LINK: postgres://anton:lalala@postgres:5432/face-recon
+    links:
+      - postgres
+
+
+  #Postges
+  postgres:
+    environment:
+      POSTGRES_USER: anton
+      POSTGRES_PASSWORD: lalala
+      POSTGRES_DB: face-recon
+      POSTGRES_HOST: postgres
+    image: postgres
+    ports:
+      - "5433:5432"

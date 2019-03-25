@@ -1,0 +1,8 @@
+face-recon-backend::DATABASE=> CREATE TABLE users (id serial PRIMARY KEY, name VARCHAR(128), email VARCHAR(128) UNIQUE NOT NULL, entties INTEGER DEFAULT 0, joined TIMESTAMP);
+CREATE TABLE
+face-recon-backend::DATABASE=> CREATE TABLE login (id serial PRIMAY KEY, email VARCHAR(128) UNIQUE NOT NULL, hash VARCHAR(128) NOT NULL);
+ERROR:  syntax error at or near "PRIMAY"
+СТРОКА 1: CREATE TABLE login (id serial PRIMAY KEY, email VARCHAR(128)...
+                                        ^
+face-recon-backend::DATABASE=> CREATE TABLE login (id serial PRIMARY KEY, email VARCHAR(128) UNIQUE NOT NULL, hash VARCHAR(128) NOT NULL);
+CREATE TABLE

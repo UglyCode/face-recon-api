@@ -16,7 +16,7 @@ const getFaceRecognitionObject = (req, res) => {
 const handleImageIncrease = (req, res, pg) => {
     const {id} = req.body;
     pg('users')
-        .where('id','=', id)
+        .where('id','=', Number(id))
         .increment('entries', 1)
         .returning('entries')
         .then(entries => res.json(entries))
