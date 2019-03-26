@@ -16,7 +16,7 @@ const pg = knex({
    client: 'pg',
    connection: {
       connectionString: DATABASE_LINK,
-      ssl: true
+      ssl: false
    }
 });
 
