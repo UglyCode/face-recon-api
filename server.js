@@ -10,6 +10,7 @@ const imageIncrease = require('./controllers/image');
 
 const PORT = process.env.PORT || 3001;
 const DATABASE_LINK = process.env.DATABASE_URL;
+console.log(DATABASE_LINK);
 
 const pg = knex({
    client: 'pg',
