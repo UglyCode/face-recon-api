@@ -1,6 +1,8 @@
 version: '3.7'
 
 services:
+
+
   #Backend
   face-recon-api:
     container_name: backend
@@ -15,8 +17,8 @@ services:
       CLARIFAI_API_KEY: 2c149afabd8141448623c02e728db777
       NODE_ENV: development
       DATABASE_URL: postgres://anton:lalala@postgres:5432/face-recon
-    links:
-      - postgres
+#    links:
+#      - postgres
 
 
   #Postges
@@ -30,3 +32,10 @@ services:
     build: ./postgres
     ports:
       - "5433:5432"
+
+
+  #Redis
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
