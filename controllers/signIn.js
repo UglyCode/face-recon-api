@@ -28,8 +28,14 @@ const handleSignIn = (pg, bcrypt, req, res) =>{
             Promise.reject('wrong credentials')));
 };
 
-const getAuthTokenId = () => {
-    console.log('Auth sent');
+const getAuthTokenId = (req, res) => {
+   const {authorization} = req.headers;
+   return redisClient.get(authorization, (err, reply) =>{
+        if (err || !reply){
+            return res.status(400).json('Permission denied');
+        }
+        return res.json({id: reply});
+    })
 };
 
 const signToken = (email) => {
@@ -37,16 +43,24 @@ const signToken = (email) => {
     return jwt.sign(jwtPayload, 'SENIOR', {expiresIn: '2 days'});
 };
 
+const setToken = (token, id) => {
+    return Promise.resolve(redisClient.set(token, id));
+};
+
 const createSessions = (user) =>{
     const {id, email} = user;
     const token = signToken(email);
-    return {success: 'true', userId: id, token};
+    return setToken(token, id)
+        .then(()=>{
+            return {success: 'true', userId: id, token}
+        })
+        .catch(err => console.log);
 };
 
 const signInAuth = (pg, bcrypt) => (req, res) =>{
-    const { authorisation } = req.headers;
-    return authorisation ?
-        getAuthTokenId() :
+    const { authorization } = req.headers;
+    return authorization ?
+        getAuthTokenId(req, res) :
         handleSignIn(pg, bcrypt, req, res)
             .then(data => {
                 return data.id && data.email ?
