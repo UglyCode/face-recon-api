@@ -14,4 +14,21 @@ const handleProfileGet = (req, res, pg) =>{
         .catch(err => res.status('400').json('wrong credentials'));
 };
 
-module.exports = {handleProfileGet};
+
+const handleProfileUpdate = (req, res, pg) => {
+    const {id} = req.params;
+    const {name, age, pet } = req.body.formInput;
+    pg('users')
+        .where({id})
+        .update({name})
+        .then(response =>{
+            if (response) {
+                res.json('all done')
+            } else{
+                res.status(400).json('smth went wrong')
+            }
+        })
+        .catch(err => res.status(500).json('error appeared while updating'))
+};
+
+module.exports = {handleProfileGet, handleProfileUpdate};

@@ -41,6 +41,7 @@ app.put('/image', (req, res) => {imageIncrease.handleImageIncrease(req, res, pg)
 
 app.post('/image', (req, res) => {imageIncrease.getFaceRecognitionObject(req, res)});
 
+app.post('/profile/:id', (req, res) => {profile.handleProfileUpdate(req,res,pg)});
 
 
 // // Load hash from your password DB.
