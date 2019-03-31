@@ -70,4 +70,4 @@ const signInAuth = (pg, bcrypt) => (req, res) =>{
             .catch(err => res.status(400).json(err));
 };
 
-module.exports = {signInAuth};
+module.exports = {signInAuth, redisClient};
